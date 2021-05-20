@@ -1,0 +1,28 @@
+---
+# This example is done using Ubuntu 16.04 server, which has Python 2.7 preinstalled, so no need to install Python:
+#- name: Install Python 2.7
+#  yum: name={{ item }} state=installed update_cache=yes
+#  with_items:
+#   - python27
+
+# Copy deployment script to target host. 
+# The script can be removed from the target server afterwards after the host has been deployed.
+# Configure your PrivX server Trusted Clients and download the deploy.py script from
+# https://yourprivxserveraddress/privx/deployment/trusted-clients
+
+- name: Copy deploy.py script to target host
+  copy:
+    src: deploy.py
+    dest: /root
+    owner: root
+    group: root
+    mode: 0755
+
+# Scan the host and configure OpenSSH to use PrivX root CA
+# See host_environment and principals -variable configuration in hosts file
+
+- name: Run deployment script
+  shell: python /root/deploy.py {{ host_environment }} --principals {{ principals }}
+  args:
+    executable: /bin/bash
+

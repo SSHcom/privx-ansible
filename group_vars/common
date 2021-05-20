@@ -1,0 +1,4 @@
+---
+# Variables listed here are applicable to common group
+
+ntpserver: time.nist.gov

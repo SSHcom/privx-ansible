@@ -1,0 +1,10 @@
+---
+# This playbook configures a target host to use PrivX for authentication.
+
+# Run PrivX deployment script on all webservers:
+- name: Deploy PrivX hosts
+  hosts: webservers
+
+  roles:
+    - common
+

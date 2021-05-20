@@ -1,0 +1,22 @@
+[webservers]
+ubuntu-test-server-1 ansible_ssh_host=ec2-54-88-54-128.compute-1.amazonaws.com 
+
+[webservers:vars]
+ansible_ssh_user=ubuntu 
+ansible_ssh_port=22
+ansible_python_interpreter=/usr/bin/python2.7
+ansible_ssh_private_key_file=privx_test.pem
+
+# Define deploy.py parameters here. 
+
+# These servers are located in AWS cloud, so run the deployment script with host_environment=--aws parameter.
+# See deploy.py for options. 
+# Use --standalone for non-cloud environment.
+host_environment=--aws
+
+# Define PrivX role -> target username mappings here.
+# Example syntax: principal1=role_name1,role_name2:principal2=role_name3
+# Allow access to ubuntu user for web-developers:
+# This example requires your PrivX server to contain a role called "web-developers" and
+# target host should have "ubuntu" user account configured.
+principals=ubuntu=web-developers
